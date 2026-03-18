@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian States - BJP Control (2014-2019)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+        }
+        
+        .map-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .state {
+            stroke: #2c3e50;
+            stroke-width: 1.5;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .state:hover {
+            stroke-width: 3;
+            filter: brightness(0.9);
+        }
+        
+        .state-label {
+            font-size: 10px;
+            font-weight: 600;
+            pointer-events: none;
+            text-anchor: middle;
+            fill: #2c3e50;
+        }
+        
+        .power-date {
+            font-size: 8px;
+            pointer-events: none;
+            text-anchor: middle;
+            fill: #c0392b;
+            font-weight: 700;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        .bjp-majority { fill: #FF8C42; }
+        .bjp-coalition { fill: #90EE90; }
+        .opposition { fill: #87CEEB; }
+        
+        .info-box {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .info-box h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .summary-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .summary-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .summary-label {
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🇮🇳 Indian States - BJP Control (2014-2019)</h1>
+        <p class="subtitle">Color-coded by BJP governance status with power transition dates</p>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color bjp-majority"></div>
+                <span><strong>🟠 ORANGE</strong> - BJP Majority (10 states)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color bjp-coalition"></div>
+                <span><strong>🟢 GREEN</strong> - BJP-led Coalition (8 states)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color opposition"></div>
+                <span><strong>🔵 BLUE</strong> - Opposition/No BJP Power (12 states)</span>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <svg viewBox="0 0 1000 1100" xmlns="http://www.w3.org/2000/svg">
+                <!-- Jammu & Kashmir -->
+                <path class="state bjp-coalition" data-state="Jammu & Kashmir" data-info="BJP+PDP Coalition (2015-2018)|Governor's Rule after 2018" d="M 200,50 L 250,40 L 300,60 L 320,100 L 310,140 L 270,150 L 220,130 L 190,90 Z"/>
+                <text class="state-label" x="260" y="95">J&K</text>
+                <text class="power-date" x="260" y="110">2015</text>
+                
+                <!-- Himachal Pradesh -->
+                <path class="state bjp-majority" data-state="Himachal Pradesh" data-info="BJP Majority from December 2017" d="M 240,160 L 290,155 L 310,180 L 300,210 L 260,215 L 230,195 Z"/>
+                <text class="state-label" x="270" y="185">HP</text>
+                <text class="power-date" x="270" y="197">Dec 2017</text>
+                
+                <!-- Punjab -->
+                <path class="state opposition" data-state="Punjab" data-info="INC Majority from 2017|BJP in Opposition" d="M 200,180 L 240,175 L 250,210 L 220,230 L 190,215 Z"/>
+                <text class="state-label" x="220" y="205">PB</text>
+                
+                <!-- Uttarakhand -->
+                <path class="state bjp-majority" data-state="Uttarakhand" data-info="BJP Majority from March 2017" d="M 310,190 L 360,185 L 380,215 L 360,240 L 320,235 L 305,215 Z"/>
+                <text class="state-label" x="340" y="212">UK</text>
+                <text class="power-date" x="340" y="224">Mar 2017</text>
+                
+                <!-- Haryana -->
+                <path class="state bjp-majority" data-state="Haryana" data-info="BJP Majority throughout 2014-2019" d="M 230,230 L 280,225 L 300,255 L 280,280 L 240,275 L 220,250 Z"/>
+                <text class="state-label" x="260" y="252">HR</text>
+                <text class="power-date" x="260" y="264">2014</text>
+                
+                <!-- Delhi -->
+                <circle class="state opposition" data-state="Delhi" data-info="AAP Majority from 2015|BJP in Opposition" cx="270" cy="255" r="15"/>
+                <text class="state-label" x="270" y="258">DL</text>
+                
+                <!-- Uttar Pradesh -->
+                <path class="state bjp-majority" data-state="Uttar Pradesh" data-info="BJP Supermajority from March 2017" d="M 310,240 L 420,235 L 480,250 L 490,300 L 470,350 L 410,360 L 350,350 L 310,320 L 300,280 Z"/>
+                <text class="state-label" x="400" y="295">Uttar Pradesh</text>
+                <text class="power-date" x="400" y="310">Mar 2017</text>
+                
+                <!-- Rajasthan -->
+                <path class="state bjp-majority" data-state="Rajasthan" data-info="BJP Majority until December 2018|INC after 2018" d="M 150,250 L 280,240 L 300,330 L 270,390 L 200,400 L 140,360 L 130,300 Z"/>
+                <text class="state-label" x="215" y="315">Rajasthan</text>
+                <text class="power-date" x="215" y="330">2014-Dec 2018</text>
+                
+                <!-- Gujarat -->
+                <path class="state bjp-majority" data-state="Gujarat" data-info="BJP Majority throughout 2014-2019" d="M 120,380 L 200,370 L 220,420 L 210,480 L 160,500 L 110,470 L 100,420 Z"/>
+                <text class="state-label" x="160" y="435">Gujarat</text>
+                <text class="power-date" x="160" y="450">2014</text>
+                
+                <!-- Madhya Pradesh -->
+                <path class="state bjp-majority" data-state="Madhya Pradesh" data-info="BJP Majority until December 2018|INC after 2018" d="M 280,360 L 420,355 L 450,410 L 430,470 L 370,480 L 300,470 L 260,430 L 270,390 Z"/>
+                <text class="state-label" x="360" y="415">Madhya Pradesh</text>
+                <text class="power-date" x="360" y="430">2014-Dec 2018</text>
+                
+                <!-- Chhattisgarh -->
+                <path class="state bjp-majority" data-state="Chhattisgarh" data-info="BJP Majority until December 2018" d="M 450,410 L 530,405 L 550,450 L 540,500 L 490,510 L 440,490 L 430,450 Z"/>
+                <text class="state-label" x="490" y="455">CG</text>
+                <text class="power-date" x="490" y="470">2014-Dec 2018</text>
+                
+                <!-- Maharashtra -->
+                <path class="state bjp-coalition" data-state="Maharashtra" data-info="BJP+Shiv Sena Coalition throughout 2014-2019" d="M 210,490 L 350,480 L 390,540 L 370,600 L 300,610 L 240,590 L 200,540 Z"/>
+                <text class="state-label" x="295" y="545">Maharashtra</text>
+                <text class="power-date" x="295" y="560">2014</text>
+                
+                <!-- Goa -->
+                <circle class="state bjp-coalition" data-state="Goa" data-info="BJP+MGP/allies Coalition from 2017" cx="200" cy="600" r="20"/>
+                <text class="state-label" x="200" y="603">Goa</text>
+                <text class="power-date" x="200" y="615">2017</text>
+                
+                <!-- Karnataka -->
+                <path class="state opposition" data-state="Karnataka" data-info="INC/JD(S) Coalition 2018-2019|BJP in Opposition" d="M 280,620 L 370,610 L 400,670 L 380,730 L 320,740 L 270,710 L 260,660 Z"/>
+                <text class="state-label" x="330" y="675">Karnataka</text>
+                
+                <!-- Telangana -->
+                <path class="state opposition" data-state="Telangana" data-info="TRS Majority|BJP in Opposition" d="M 400,540 L 480,535 L 500,580 L 490,620 L 440,625 L 400,590 Z"/>
+                <text class="state-label" x="450" y="585">TS</text>
+                
+                <!-- Andhra Pradesh -->
+                <path class="state opposition" data-state="Andhra Pradesh" data-info="TDP Majority (102 seats)|BJP tiny ally (4 seats)" d="M 400,630 L 490,625 L 510,680 L 500,740 L 440,750 L 390,720 L 390,670 Z"/>
+                <text class="state-label" x="450" y="690">AP</text>
+                
+                <!-- Tamil Nadu -->
+                <path class="state opposition" data-state="Tamil Nadu" data-info="AIADMK Majority|BJP in Opposition" d="M 320,750 L 430,745 L 450,810 L 420,870 L 350,880 L 300,850 L 290,790 Z"/>
+                <text class="state-label" x="370" y="815">Tamil Nadu</text>
+                
+                <!-- Kerala -->
+                <path class="state opposition" data-state="Kerala" data-info="LDF (CPM-led) from 2016|BJP negligible" d="M 250,760 L 310,755 L 320,820 L 300,870 L 250,860 L 230,810 Z"/>
+                <text class="state-label" x="280" y="815">Kerala</text>
+                
+                <!-- Odisha -->
+                <path class="state opposition" data-state="Odisha" data-info="BJD Majority|BJP in Opposition" d="M 520,450 L 590,445 L 610,510 L 600,570 L 550,580 L 510,550 L 510,500 Z"/>
+                <text class="state-label" x="560" y="515">Odisha</text>
+                
+                <!-- Jharkhand -->
+                <path class="state bjp-coalition" data-state="Jharkhand" data-info="BJP+AJSU Coalition|BJP 37 + AJSU 5 = 42/81 seats" d="M 490,360 L 560,355 L 580,400 L 570,445 L 520,450 L 480,420 Z"/>
+                <text class="state-label" x="535" y="405">JH</text>
+                <text class="power-date" x="535" y="420">2014</text>
+                
+                <!-- West Bengal -->
+                <path class="state opposition" data-state="West Bengal" data-info="TMC Majority|BJP in Opposition" d="M 570,300 L 650,295 L 680,340 L 670,390 L 620,400 L 570,380 L 560,340 Z"/>
+                <text class="state-label" x="620" y="350">West Bengal</text>
+                
+                <!-- Bihar -->
+                <path class="state bjp-coalition" data-state="Bihar" data-info="Grand Alliance 2015-2017|BJP+JD(U) from 2017 (BJP junior)" d="M 480,300 L 570,295 L 580,340 L 560,380 L 500,385 L 475,350 Z"/>
+                <text class="state-label" x="530" y="340">Bihar</text>
+                <text class="power-date" x="530" y="355">2017</text>
+                
+                <!-- Sikkim -->
+                <path class="state opposition" data-state="Sikkim" data-info="SDF Majority|BJP not in government" d="M 650,290 L 680,285 L 690,310 L 680,335 L 655,330 Z"/>
+                <text class="state-label" x="670" y="310">SK</text>
+                
+                <!-- Assam -->
+                <path class="state bjp-coalition" data-state="Assam" data-info="BJP+AGP+BPF Coalition|BJP dominant partner" d="M 700,280 L 800,275 L 820,320 L 810,360 L 750,365 L 700,345 L 690,310 Z"/>
+                <text class="state-label" x="760" y="320">Assam</text>
+                <text class="power-date" x="760" y="335">2016</text>
+                
+                <!-- Meghalaya -->
+                <path class="state opposition" data-state="Meghalaya" data-info="NPP-led Coalition|BJP junior/minimal role" d="M 750,370 L 800,365 L 810,395 L 795,420 L 755,418 Z"/>
+                <text class="state-label" x="780" y="395">ML</text>
+                
+                <!-- Tripura -->
+                <path class="state bjp-majority" data-state="Tripura" data-info="BJP Majority from March 2018" d="M 820,400 L 850,395 L 860,425 L 845,450 L 815,445 Z"/>
+                <text class="state-label" x="840" y="425">TR</text>
+                <text class="power-date" x="840" y="437">Mar 2018</text>
+                
+                <!-- Mizoram -->
+                <path class="state opposition" data-state="Mizoram" data-info="INC then MNF|BJP not in government" d="M 800,430 L 825,425 L 835,460 L 820,485 L 795,480 Z"/>
+                <text class="state-label" x="815" y="455">MZ</text>
+                
+                <!-- Manipur -->
+                <path class="state bjp-coalition" data-state="Manipur" data-info="BJP+NPP/NPF Coalition from 2017" d="M 830,340 L 860,335 L 875,365 L 865,395 L 835,390 Z"/>
+                <text class="state-label" x="853" y="367">MN</text>
+                <text class="power-date" x="853" y="379">2017</text>
+                
+                <!-- Nagaland -->
+                <path class="state bjp-coalition" data-state="Nagaland" data-info="NDPP+BJP Coalition from 2018" d="M 840,300 L 875,295 L 890,325 L 880,355 L 850,350 Z"/>
+                <text class="state-label" x="865" y="327">NL</text>
+                <text class="power-date" x="865" y="339">2018</text>
+                
+                <!-- Arunachal Pradesh -->
+                <path class="state bjp-majority" data-state="Arunachal Pradesh" data-info="BJP Majority from 2016 (via defections)" d="M 750,230 L 850,225 L 880,260 L 870,295 L 810,300 L 760,280 Z"/>
+                <text class="state-label" x="820" y="265">Arunachal Pradesh</text>
+                <text class="power-date" x="820" y="280">2016</text>
+            </svg>
+        </div>
+        
+        <div class="summary">
+            <div class="summary-item" style="background: #FF8C42;">
+                <div class="summary-number">10</div>
+                <div class="summary-label">BJP Majority States</div>
+            </div>
+            <div class="summary-item" style="background: #90EE90;">
+                <div class="summary-number">8</div>
+                <div class="summary-label">BJP-led Coalition States</div>
+            </div>
+            <div class="summary-item" style="background: #87CEEB;">
+                <div class="summary-number">12</div>
+                <div class="summary-label">Opposition States</div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <h3>📊 Key Insights (2014-2019)</h3>
+            <ul>
+                <li><strong>BJP Majority:</strong> States where BJP won clear majority on its own (shown with year BJP came to power)</li>
+                <li><strong>BJP-led Coalition:</strong> States where BJP led coalition governments with alliance partners</li>
+                <li><strong>Opposition:</strong> States where BJP was not in power or had negligible influence</li>
+                <li><strong>Red dates:</strong> Indicate when BJP came to power in that state (only for BJP majority/coalition states)</li>
+                <li><strong>Notable:</strong> Three states (MP, Rajasthan, Chhattisgarh) switched from BJP to INC in December 2018</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="tooltip" id="tooltip"></div>
+    
+    <script>
+        const states = document.querySelectorAll('.state');
+        const tooltip = document.getElementById('tooltip');
+        
+        states.forEach(state => {
+            state.addEventListener('mouseenter', (e) => {
+                const stateName = state.getAttribute('data-state');
+                const stateInfo = state.getAttribute('data-info');
+                tooltip.innerHTML = `<strong>${stateName}</strong><br>${stateInfo.replace('|', '<br>')}`;
+                tooltip.style.display = 'block';
+            });
+            
+            state.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 15 + 'px';
+                tooltip.style.top = e.pageY + 15 + 'px';
+            });
+            
+            state.addEventListener('mouseleave', () => {
+                tooltip.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
